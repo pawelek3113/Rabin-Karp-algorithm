@@ -6,7 +6,7 @@ using namespace std;
 const int bigN = 29;
 const int numLetters = 26;
 
-int hashF(string s){
+int hashFunction(string s){
     int size = s.size();
     int exp = size - 1;
     int val = 0;
@@ -27,34 +27,41 @@ bool compareString(string s1, string s2){
     return true;
 }
 
-int findText(string text, string key) {
-    int hk = hashF(key);
+int findKey(string text, string key) {
+    int hk = hashFunction(key);
     int Tsize = text.size();
     int Ksize = key.size();
 
     for(int i = 0; i < Tsize; i++) {
         string s = text.substr(i, Ksize);
-        int hashS = hashF(s);
+        int hashS = hashFunction(s);
         if(hashS != hk){
             continue;
         }
         else{
-
-            cout << "Index: " << i;
-            break;
+            if(compareString(text,key) == true){
+                cout << "\nStrings are the same\nIndex: 0";
+                return 0;
+            }
+            else{
+                cout << "\nIndex: " << i;
+                return i;
+            }
         }
     }
+    cout << "\nKey wasn't found";
+    return -1;
 
 }
 
 int main(){
     string key, text;
-    cout << "Hash \n Enter a text: ";
+    cout << "Rabin-Karp algorithm\nFinding key in the text\nEnter a text: ";
     cin >> text;
-    cout << "Enter a key: ";
+    cout << "\nEnter a key: ";
     cin >> key;
 
-    findText(text, key);
+    findKey(text, key);
 
     return 0;
 }
